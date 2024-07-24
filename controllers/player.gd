@@ -8,12 +8,7 @@ func _physics_process(delta: float) -> void:
 	## Get the input direction and handle the movement/deceleration.
 	## As good practice, you should replace UI actions with custom gameplay actions.
 	#var direction := Input.get_vector("walk_left", "walk_right", "walk_up", "walk_down")
-	#if direction:
-		#velocity = direction.normalized() * SPEED
-		#ray_cast_2d.target_position = direction * ray_distance
-	#else:
-		#velocity = Vector2.ZERO
-	#move_and_slide()
+	ray_cast_2d.target_position = ray_distance * velocity.normalized()
 	
 
 	
