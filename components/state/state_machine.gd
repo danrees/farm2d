@@ -13,16 +13,17 @@ func _ready() -> void:
 	for child in get_children():
 		if child is State:
 			(child as State).initialize()
-
+			child.transition.connect(change_state_by_name)
 
 func _physics_process(delta: float) -> void:
-	if Input.get_vector("walk_left", "walk_right", "walk_up", "walk_down"):
-		change_state(get_node("Walk"))
-	else:
-		change_state(get_node("Idle"))
 	if current_state:
 		current_state.physics_process(delta)
 
+
+func change_state_by_name(new_state: String) -> void:
+	var state_node = get_node(new_state)
+	if state_node and state_node is State:
+		change_state(state_node)
 
 func change_state(new_state: State):
 	if new_state == null or new_state == current_state:

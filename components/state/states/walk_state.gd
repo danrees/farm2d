@@ -35,6 +35,7 @@ func physics_process(delta: float) -> void:
 		_change_direction(state_body)
 	else:
 		state_body.velocity = Vector2.ZERO
+		transition.emit("Idle")
 	state_body.move_and_slide()
 
 func _change_direction(body: CharacterBody2D):
