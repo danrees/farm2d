@@ -11,8 +11,10 @@ func _increase_seconds(delta_seconds: int) -> void:
 	hours += minutes / 60
 	days += hours / 24
 	
-	seconds = wrapi(seconds, 0, 59)
-	minutes = wrapi(minutes, 0, 59)
-	hours = wrapi(hours, 0, 23)
+	seconds = seconds % 60
+	minutes = seconds % 60
+	hours = seconds % 24
 	
+func _after(compare: DateTime) -> bool:
+	return hours > compare.hours || minutes > compare.minutes || seconds > compare.seconds
 	
