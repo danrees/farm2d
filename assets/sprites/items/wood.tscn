@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://ue0b5llhi42w"]
+
+[ext_resource type="Script" path="res://components/inventory/collectible.gd" id="1_5i06a"]
+[ext_resource type="Texture2D" uid="uid://yb4c4opit2p0" path="res://assets/sprites/items/wood.png" id="2_q8ng6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yko67"]
+size = Vector2(18, 18)
+
+[node name="Wood" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_5i06a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_q8ng6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_yko67")

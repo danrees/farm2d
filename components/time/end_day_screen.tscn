@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://cnhwnv78rdujl"]
+
+[ext_resource type="Script" path="res://components/time/end_day_screen.gd" id="1_2m1t5"]
+[ext_resource type="Shader" uid="uid://b4uqtx76obfb3" path="res://components/time/end_day_screen.tres" id="2_1bd61"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0ochh"]
+font_size = 40
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_71bf5"]
+noise_type = 3
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_siepl"]
+noise = SubResource("FastNoiseLite_71bf5")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uf21p"]
+shader = ExtResource("2_1bd61")
+shader_parameter/ColorParameter = Color(0.078, 0, 0.78, 1)
+shader_parameter/FloatParameter = 0.1
+shader_parameter/Texture2DParameter = SubResource("NoiseTexture2D_siepl")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_6l2u1"]
+
+[node name="EndDayScreen" type="CanvasLayer"]
+script = ExtResource("1_2m1t5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+z_index = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Day End"
+label_settings = SubResource("LabelSettings_0ochh")
+
+[node name="Continue" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Continue"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_uf21p")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_6l2u1")
+
+[connection signal="pressed" from="VBoxContainer/Continue" to="." method="_on_continue_pressed"]

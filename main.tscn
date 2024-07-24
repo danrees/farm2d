@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=3 uid="uid://2qdnrcwv5v7f"]
+
+[ext_resource type="PackedScene" uid="uid://ceptvbbbnmxjm" path="res://components/player.tscn" id="1_kdrnl"]
+[ext_resource type="Resource" uid="uid://hnihtinvep8h" path="res://assets/sprites/items/wood.tres" id="6_3ur51"]
+[ext_resource type="Script" path="res://components/inventory/collectible.gd" id="6_5wqvk"]
+[ext_resource type="Texture2D" uid="uid://yb4c4opit2p0" path="res://assets/sprites/items/wood.png" id="7_8h7qr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_w0gn5"]
+font_size = 40
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_neovh"]
+
+[node name="main" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_kdrnl")]
+
+[node name="Menu" type="CanvasLayer" parent="."]
+layer = 2
+follow_viewport_enabled = true
+
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="Hud"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainLayout" type="VBoxContainer" parent="Hud/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Time" type="PanelContainer" parent="Hud/Control/MainLayout"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" type="Label" parent="Hud/Control/MainLayout/Time"]
+layout_mode = 2
+text = "Test"
+label_settings = SubResource("LabelSettings_w0gn5")
+horizontal_alignment = 2
+
+[node name="Toolbelt" type="PanelContainer" parent="Hud/Control/MainLayout"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="Collectible" type="RigidBody2D" parent="."]
+position = Vector2(79.77, 2.08165e-12)
+collision_layer = 2
+collision_mask = 2
+mass = 10.0
+gravity_scale = 1.66533e-16
+script = ExtResource("6_5wqvk")
+item = ExtResource("6_3ur51")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collectible"]
+shape = SubResource("CircleShape2D_neovh")
+
+[node name="Sprite2D" type="Sprite2D" parent="Collectible"]
+texture = ExtResource("7_8h7qr")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+offset_left = -97.0
+offset_top = -57.0
+offset_right = 94.0
+offset_bottom = 58.0
