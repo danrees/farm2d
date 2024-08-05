@@ -11,9 +11,8 @@ const SOIL = 3
 const WET_SOIL = 0
 const SEEDS = 0
 
-
 @onready var terrain: TileMapLayer = $Terrain
-@onready var watered: TileMapLayer = $Watered
+@onready var watered: TileMapLayer = $Status
 @onready var planted: TileMapLayer = $Planted
 
 func _check_property(prop: String, coords: Vector2i) -> bool:
@@ -38,7 +37,17 @@ func water_seed(coords: Array[Vector2i]) -> void:
 	var to_water = _find_type(WATERABLE, coords)
 	planted.set_cells_terrain_connect(to_water, TERRAIN_SET, WET_SOIL)
 	
-func plant_seed(coords: Array[Vector2i]) -> void:
+func plant_seed(coords: Array[Vector2i], seed: Seed ) -> void:
 	var to_plant = _find_type(PLANTABLE, coords)
-	planted.set_cells_terrain_connect(to_plant, TERRAIN_SET, SEEDS)
+	for c in coords:
+		var td = planted.get_cell_tile_data(c)
+		if td.get_custom_data("plant") == null:
+			td.set_custom_data("plant", seed.to_plant())
+			# planted.set_cells_terrain_connect(to_plant, TERRAIN_SET, SEEDS)
 	
+func _on_days_end() -> void:
+	for coords in planted.get_used_cells():
+		var td = planted.get_cell_tile_data(coords)
+		var plant = td.get_custom_data("plant")
+		if plant is Seed:
+			plant.grow(1)

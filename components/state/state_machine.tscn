@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://sf7prknxuq0j"]
 
-[ext_resource type="Script" path="res://components/state/state_machine.gd" id="1_o11sc"]
+[ext_resource type="Script" path="res://components/state/movement_state_machine.gd" id="1_o11sc"]
 [ext_resource type="Script" path="res://components/state/states/idle_state.gd" id="2_qikoq"]
 [ext_resource type="Script" path="res://components/state/states/walk_state.gd" id="3_vftef"]
 

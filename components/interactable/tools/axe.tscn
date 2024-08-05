@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://7msco8vahnlv"]
+
+[ext_resource type="Script" path="res://components/interactable/tools/axe.gd" id="1_st6g7"]
+
+[node name="Axe" type="Node"]
+script = ExtResource("1_st6g7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

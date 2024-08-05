@@ -1,11 +1,8 @@
 class_name StateMachine extends Node2D
 
-@export var animation: AnimationPlayer = null
-@export var player: CharacterBody2D = null
 @export var default_state: State
 
 var current_state: State
-var current_direction: String = "down"
 
 func _ready() -> void:
 	if default_state != null:
@@ -19,6 +16,13 @@ func _physics_process(delta: float) -> void:
 	if current_state:
 		current_state.physics_process(delta)
 
+func _process(delta: float) -> void:
+	if current_state:
+		current_state.process(delta)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if current_state:
+		current_state.input(event)
 
 func change_state_by_name(new_state: String) -> void:
 	var state_node = get_node(new_state)

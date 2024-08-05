@@ -16,3 +16,6 @@ func physics_process(delta: float) -> void:
 
 func process(delta: float) -> void:
 	pass
+
+func input(event: InputEvent) -> void:
+	pass

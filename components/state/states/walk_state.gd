@@ -6,8 +6,8 @@ class_name Walk extends State
 var animation: AnimationPlayer
 
 func initialize():
-	if owner is StateMachine:
-		animation = (owner as StateMachine).animation
+	if owner is MovementStateMachine:
+		animation = owner.animation
 
 func enter():
 	if !animation:

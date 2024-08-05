@@ -1,1 +1,1 @@
-extends Node
+class_name ToolStateMachine extends StateMachine

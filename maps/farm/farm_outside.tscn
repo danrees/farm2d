@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=4 uid="uid://rhejw54cuual"]
 
 [ext_resource type="Script" path="res://maps/farm/farm_outside.gd" id="1_0dybh"]
-[ext_resource type="Script" path="res://components/map/layers.gd" id="1_2sk6b"]
+[ext_resource type="Script" path="res://components/farming/layers.gd" id="1_2sk6b"]
 [ext_resource type="TileSet" uid="uid://j416nw42fpwa" path="res://maps/farm/tile_set.tres" id="3_nm612"]
 [ext_resource type="Texture2D" uid="uid://r6337527b2hi" path="res://assets/terrain_atlas/water_overlay.png" id="4_eoo1l"]
 [ext_resource type="Shader" uid="uid://ciyikv0gov7ub" path="res://maps/farm/water_soil.tres" id="4_v7e1n"]
@@ -342,7 +342,7 @@ tile_set = ExtResource("3_nm612")
 
 [node name="Watered" type="TileMapLayer" parent="Layers"]
 material = SubResource("ShaderMaterial_xosxx")
-tile_map_data = PackedByteArray("AAABAAAAAAABAAAAAAACAAAAAAAFAAQAAAADAAAAAAADAAAAAAACAAEAAAAAAAMAAAA=")
+tile_map_data = PackedByteArray("AAABAAAAAAABAAAAAAACAAAAAAADAAQAAAADAAAAAAACAAEAAAACAAEAAAABAAMAAAAEAAAAAAADAAEAAAADAAEAAAACAAMAAAAEAAEAAAADAAMAAAA=")
 tile_set = SubResource("TileSet_fxsro")
 
 [node name="Camera2D" type="Camera2D" parent="."]

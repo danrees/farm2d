@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwq1r7u1qbo4c"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_8ytid"]
+
+[node name="CraftingTest" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.999992, 1.5)
+scale = Vector2(458, 245)
+texture = SubResource("CanvasTexture_8ytid")
+
+[node name="CraftingTable" type="Node2D" parent="."]
