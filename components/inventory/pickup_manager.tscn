@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://7qwe3rwvaj3g"]
+
+[ext_resource type="Script" path="res://components/inventory/pickup_manager.gd" id="1_ydfxj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i0eh2"]
+radius = 65.0308
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0pefk"]
+radius = 13.0384
+
+[node name="PickupManager" type="Node2D"]
+script = ExtResource("1_ydfxj")
+
+[node name="MagnetRadius" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MagnetRadius"]
+shape = SubResource("CircleShape2D_i0eh2")
+
+[node name="CollectRadius" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectRadius"]
+position = Vector2(0, 6)
+shape = SubResource("CircleShape2D_0pefk")
+
+[connection signal="body_exited" from="MagnetRadius" to="." method="_on_magnet_radius_body_exited"]
+[connection signal="body_entered" from="CollectRadius" to="." method="_on_collect_radius_body_entered"]

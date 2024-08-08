@@ -1,0 +1,67 @@
+[gd_scene load_steps=13 format=3 uid="uid://dfhe34badd0bh"]
+
+[ext_resource type="PackedScene" uid="uid://ceptvbbbnmxjm" path="res://components/player.tscn" id="1_irybn"]
+[ext_resource type="Script" path="res://components/entities/hit_box.gd" id="2_dh3ex"]
+[ext_resource type="Script" path="res://components/entities/contents.gd" id="3_q3pet"]
+[ext_resource type="Script" path="res://components/inventory/item_stack.gd" id="4_3bxnc"]
+[ext_resource type="PackedScene" uid="uid://ue0b5llhi42w" path="res://assets/sprites/items/wood.tscn" id="5_aytvw"]
+[ext_resource type="Texture2D" uid="uid://yb4c4opit2p0" path="res://assets/sprites/items/wood.png" id="6_a1uyi"]
+[ext_resource type="Script" path="res://test_scenes/components/resource_node.gd" id="7_t3i8o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6np23"]
+
+[sub_resource type="Resource" id="Resource_1xnbi"]
+script = ExtResource("4_3bxnc")
+quantity = 5
+name = "wood"
+description = "raw wood"
+icon = ExtResource("6_a1uyi")
+collectible = ExtResource("5_aytvw")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rr4fm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m6bfw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_giwwq"]
+
+[node name="Components" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_irybn")]
+
+[node name="Tree" type="StaticBody2D" parent="."]
+position = Vector2(47, -11)
+
+[node name="HitBox" type="Area2D" parent="Tree"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("2_dh3ex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tree/HitBox"]
+shape = SubResource("CircleShape2D_6np23")
+
+[node name="Contents" type="Node" parent="Tree"]
+script = ExtResource("3_q3pet")
+items = Array[ExtResource("4_3bxnc")]([SubResource("Resource_1xnbi")])
+
+[node name="Sprite2D" type="Sprite2D" parent="Tree"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tree"]
+shape = SubResource("CircleShape2D_rr4fm")
+
+[node name="Rock" type="StaticBody2D" parent="."]
+position = Vector2(-29, -18)
+script = ExtResource("7_t3i8o")
+
+[node name="HitBox" type="Area2D" parent="Rock"]
+script = ExtResource("2_dh3ex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rock/HitBox"]
+shape = SubResource("CircleShape2D_m6bfw")
+
+[node name="Contents" type="Node" parent="Rock"]
+script = ExtResource("3_q3pet")
+
+[node name="Sprite2D" type="Sprite2D" parent="Rock"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rock"]
+shape = SubResource("CircleShape2D_giwwq")

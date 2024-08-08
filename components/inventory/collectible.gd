@@ -4,7 +4,9 @@ class_name Collectible extends RigidBody2D
 const COLLISION_ZERO := 0b0
 const COLLISION_COLLECTIBLE := 0b10
 
-func from_item(item: Item) -> Collectible:
+static func from_item(item: Item) -> Collectible:
+	if item.collectible == null:
+		return null
 	var c = item.collectible.instantiate()
 	c.item = item
 	return c
@@ -13,10 +15,12 @@ func pick_up() -> void:
 	# potentially do an animation?
 	queue_free()
 
-func drop() -> void:
+func drop_to(target: Node2D) -> void:
+	target.add_child(self)
 	# prevent this from being picked up for a bit
 	collision_layer = COLLISION_ZERO
 	collision_mask = COLLISION_ZERO
+	apply_central_impulse(Vector2(randf_range(0.1, 1.0), randf_range(0.1, 1.0)))
 	await get_tree().create_timer(5)
 	collision_layer = COLLISION_COLLECTIBLE
 	collision_mask = COLLISION_COLLECTIBLE
