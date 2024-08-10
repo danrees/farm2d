@@ -1,14 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://dfhe34badd0bh"]
+[gd_scene load_steps=15 format=3 uid="uid://dfhe34badd0bh"]
 
 [ext_resource type="PackedScene" uid="uid://ceptvbbbnmxjm" path="res://components/player.tscn" id="1_irybn"]
 [ext_resource type="Script" path="res://components/entities/hit_box.gd" id="2_dh3ex"]
+[ext_resource type="PackedScene" uid="uid://du266sopcvda3" path="res://components/inventory/resource_node.tscn" id="2_m4kja"]
 [ext_resource type="Script" path="res://components/entities/contents.gd" id="3_q3pet"]
 [ext_resource type="Script" path="res://components/inventory/item_stack.gd" id="4_3bxnc"]
 [ext_resource type="PackedScene" uid="uid://ue0b5llhi42w" path="res://assets/sprites/items/wood.tscn" id="5_aytvw"]
 [ext_resource type="Texture2D" uid="uid://yb4c4opit2p0" path="res://assets/sprites/items/wood.png" id="6_a1uyi"]
-[ext_resource type="Script" path="res://test_scenes/components/resource_node.gd" id="7_t3i8o"]
+[ext_resource type="Texture2D" uid="uid://b2mo3ooowkvbs" path="res://assets/sprites/Trees.png" id="7_5vsgr"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6np23"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_w0j5x"]
 
 [sub_resource type="Resource" id="Resource_1xnbi"]
 script = ExtResource("4_3bxnc")
@@ -18,50 +19,63 @@ description = "raw wood"
 icon = ExtResource("6_a1uyi")
 collectible = ExtResource("5_aytvw")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_rr4fm"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ia17c"]
+radius = 6.08276
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_m6bfw"]
+[sub_resource type="Gradient" id="Gradient_tp3h1"]
+offsets = PackedFloat32Array(0, 0.997685)
+colors = PackedColorArray(0.99, 0.99, 0.99, 1, 0, 0, 0, 1)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_giwwq"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_w1b3l"]
+gradient = SubResource("Gradient_tp3h1")
+width = 400
+height = 400
+fill = 1
+fill_from = Vector2(0.519231, 0.529915)
+fill_to = Vector2(0.942308, 0.974359)
+
+[sub_resource type="Environment" id="Environment_eg3x5"]
+background_mode = 3
+ambient_light_color = Color(1, 1, 1, 1)
+glow_enabled = true
 
 [node name="Components" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_irybn")]
 
-[node name="Tree" type="StaticBody2D" parent="."]
-position = Vector2(47, -11)
+[node name="ResourceNode" parent="." instance=ExtResource("2_m4kja")]
 
-[node name="HitBox" type="Area2D" parent="Tree"]
-collision_layer = 4
-collision_mask = 4
+[node name="HitBox" type="Area2D" parent="ResourceNode"]
 script = ExtResource("2_dh3ex")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Tree/HitBox"]
-shape = SubResource("CircleShape2D_6np23")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ResourceNode/HitBox"]
+shape = SubResource("CircleShape2D_w0j5x")
 
-[node name="Contents" type="Node" parent="Tree"]
+[node name="Contents" type="Node" parent="ResourceNode"]
 script = ExtResource("3_q3pet")
 items = Array[ExtResource("4_3bxnc")]([SubResource("Resource_1xnbi")])
 
-[node name="Sprite2D" type="Sprite2D" parent="Tree"]
+[node name="Sprite2D" type="Sprite2D" parent="ResourceNode"]
+texture = ExtResource("7_5vsgr")
+hframes = 2
+vframes = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Tree"]
-shape = SubResource("CircleShape2D_rr4fm")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ResourceNode"]
+position = Vector2(0, 25)
+shape = SubResource("CircleShape2D_ia17c")
 
-[node name="Rock" type="StaticBody2D" parent="."]
-position = Vector2(-29, -18)
-script = ExtResource("7_t3i8o")
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(-56, -193)
+scale = Vector2(1.4075, 1.49)
+color = Color(0.8253, 0.84, 0.6636, 0.690196)
+energy = 0.35
+texture = SubResource("GradientTexture2D_w1b3l")
 
-[node name="HitBox" type="Area2D" parent="Rock"]
-script = ExtResource("2_dh3ex")
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.81, 0.81, 0.81, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Rock/HitBox"]
-shape = SubResource("CircleShape2D_m6bfw")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_eg3x5")
 
-[node name="Contents" type="Node" parent="Rock"]
-script = ExtResource("3_q3pet")
-
-[node name="Sprite2D" type="Sprite2D" parent="Rock"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Rock"]
-shape = SubResource("CircleShape2D_giwwq")
+[connection signal="body_entered" from="ResourceNode/HitBox" to="ResourceNode/HitBox" method="_on_body_entered"]

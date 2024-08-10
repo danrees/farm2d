@@ -1,6 +1,6 @@
 class_name HitBox extends Area2D
 
-@export var max_health: int
+@export var max_health: int = 10
 
 signal empty_health()
 

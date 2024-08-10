@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://bq0ckcq1uh85j"]
+[gd_scene load_steps=37 format=4 uid="uid://bq0ckcq1uh85j"]
 
 [ext_resource type="Texture2D" uid="uid://clseiybfhp73n" path="res://assets/terrain_atlas/Grass-tiles.png" id="1_ce3r4"]
 [ext_resource type="PackedScene" uid="uid://ceptvbbbnmxjm" path="res://components/player.tscn" id="2_tfykv"]
@@ -55,7 +55,7 @@ noise = SubResource("FastNoiseLite_24ja0")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c15jh"]
 shader = ExtResource("5_qmdf2")
 shader_parameter/Vector2Parameter = Vector2(4, 4)
-shader_parameter/ColorParameter = Color(0.3, 0.65, 1, 1)
+shader_parameter/ColorParameter = Color(0.08, 0.724, 1, 1)
 shader_parameter/color_strength = 0.5
 shader_parameter/FloatParameter2 = 0.1
 shader_parameter/time_scale_highlights = 0.1
@@ -524,6 +524,11 @@ fill = 1
 fill_from = Vector2(0.487179, 0.495726)
 fill_to = Vector2(0, 0)
 
+[sub_resource type="Environment" id="Environment_8van8"]
+glow_enabled = true
+glow_normalized = true
+fog_enabled = true
+
 [node name="WaterTest" type="Node2D"]
 
 [node name="Layers" type="Node2D" parent="."]
@@ -578,3 +583,6 @@ visible = false
 position = Vector2(24, -4)
 scale = Vector2(2.32812, 1.95312)
 texture = SubResource("GradientTexture2D_qkjio")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8van8")
