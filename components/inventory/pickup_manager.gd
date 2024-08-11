@@ -22,6 +22,7 @@ func _on_collect_radius_body_entered(body: Node2D) -> void:
 		var col = body as Collectible
 		picked_up.emit(col.item)
 		col.pick_up()
+		picked_up.emit(col.item)
 
 # This is to slow down/stop the item after it has left the
 # magnetic zone

@@ -1,6 +1,6 @@
 class_name ItemSlot extends Control
-@onready var item_icon: TextureRect = $Button/ItemIcon
-@onready var item_quantity: Label = $Button/ItemQuantity
+@onready var item_icon: TextureRect = $Button/MarginContainer/ItemIcon
+@onready var item_quantity: Label = $Button/MarginContainer/ItemQuantity
 
 signal swap_item(item: Item, index: int)
 
@@ -12,6 +12,8 @@ func _ready() -> void:
 		item_icon.texture = item.icon
 		if item is ItemStack:
 			item_quantity.text = str((item as ItemStack).quantity)
+	
+	item_quantity.label_settings.font_size = size.y / 3
 
 func add(item: Item)->void:
 	if !item:

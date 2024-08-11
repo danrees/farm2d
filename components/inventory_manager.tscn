@@ -41,3 +41,8 @@ inventory_columns = 5
 inventory_rows = 5
 
 [node name="PickupManager" parent="." instance=ExtResource("3_d5ikl")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+
+[connection signal="picked_up" from="PickupManager" to="." method="_on_pickup_manager_picked_up"]

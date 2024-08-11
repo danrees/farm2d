@@ -43,24 +43,24 @@ glow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_irybn")]
 
-[node name="ResourceNode" parent="." instance=ExtResource("2_m4kja")]
+[node name="Tree" parent="." instance=ExtResource("2_m4kja")]
 
-[node name="HitBox" type="Area2D" parent="ResourceNode"]
+[node name="HitBox" type="Area2D" parent="Tree"]
 script = ExtResource("2_dh3ex")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ResourceNode/HitBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tree/HitBox"]
 shape = SubResource("CircleShape2D_w0j5x")
 
-[node name="Contents" type="Node" parent="ResourceNode"]
+[node name="Contents" type="Node" parent="Tree"]
 script = ExtResource("3_q3pet")
 items = Array[ExtResource("4_3bxnc")]([SubResource("Resource_1xnbi")])
 
-[node name="Sprite2D" type="Sprite2D" parent="ResourceNode"]
+[node name="Sprite2D" type="Sprite2D" parent="Tree"]
 texture = ExtResource("7_5vsgr")
 hframes = 2
 vframes = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ResourceNode"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tree"]
 position = Vector2(0, 25)
 shape = SubResource("CircleShape2D_ia17c")
 
@@ -78,4 +78,4 @@ color = Color(0.81, 0.81, 0.81, 1)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_eg3x5")
 
-[connection signal="body_entered" from="ResourceNode/HitBox" to="ResourceNode/HitBox" method="_on_body_entered"]
+[connection signal="body_entered" from="Tree/HitBox" to="Tree/HitBox" method="_on_body_entered"]

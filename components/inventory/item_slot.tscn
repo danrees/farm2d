@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://xsjrt6wuin3"]
+[gd_scene load_steps=3 format=3 uid="uid://xsjrt6wuin3"]
 
 [ext_resource type="Script" path="res://components/inventory/item_slot.gd" id="1_tyrdm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yqkmh"]
+font_size = 5
 
 [node name="Panel" type="PanelContainer"]
 custom_minimum_size = Vector2(20, 20)
@@ -14,23 +17,24 @@ script = ExtResource("1_tyrdm")
 [node name="Button" type="Button" parent="."]
 layout_mode = 2
 
-[node name="ItemIcon" type="TextureRect" parent="Button"]
+[node name="MarginContainer" type="MarginContainer" parent="Button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ItemIcon" type="TextureRect" parent="Button/MarginContainer"]
+layout_mode = 2
 stretch_mode = 5
 
-[node name="ItemQuantity" type="Label" parent="Button"]
+[node name="ItemQuantity" type="Label" parent="Button/MarginContainer"]
 layout_mode = 2
-offset_left = 30.0
-offset_top = 17.0
-offset_right = 40.0
-offset_bottom = 40.0
 size_flags_horizontal = 8
 size_flags_vertical = 8
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 2
+label_settings = SubResource("LabelSettings_yqkmh")

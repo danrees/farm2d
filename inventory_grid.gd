@@ -1,4 +1,4 @@
-extends GridContainer
+class_name InventoryGrid extends GridContainer
 
 @export var inventory_columns: int:
 	set(value):
@@ -21,7 +21,13 @@ func _ready() -> void:
 		add_child(slot)
 		slot.swap_item.connect(swap_item)
 	var test_item = preload("res://assets/sprites/items/wood.tres")
-	add_item(test_item)
+	var test_stack = ItemStack.new()
+	test_stack.quantity = 5
+	test_stack.icon = test_item.icon
+	test_stack.collectible = test_item.collectible
+	
+	
+	add_item(test_stack)
 
 func is_full() -> bool:
 	return get_child_count() < (inventory_columns * inventory_rows)
