@@ -2,6 +2,7 @@ class_name InventoryManager extends Node
 
 @onready var inventory_ui: Control = %InventoryUI
 @onready var inventory_grid: InventoryGrid = $InventoryUI/CenterContainer/InventoryGrid
+@onready var inventory: Inventory = $Inventory
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_released("inventory"):

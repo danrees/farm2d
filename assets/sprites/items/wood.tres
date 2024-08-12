@@ -8,3 +8,4 @@ script = ExtResource("2_3uf50")
 name = "wood"
 description = "wood"
 icon = ExtResource("1_gcx7l")
+stackable = true

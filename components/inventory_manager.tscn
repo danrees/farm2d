@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://components/inventory/inventory_manager.gd" id="1_xqsam"]
 [ext_resource type="Script" path="res://inventory_grid.gd" id="2_e0fb7"]
-[ext_resource type="PackedScene" uid="uid://7qwe3rwvaj3g" path="res://components/inventory/pickup_manager.tscn" id="3_d5ikl"]
+[ext_resource type="Script" path="res://components/inventory/inventory.gd" id="3_3h1yw"]
 
 [node name="InventoryManager" type="Node2D"]
 script = ExtResource("1_xqsam")
@@ -40,9 +40,8 @@ script = ExtResource("2_e0fb7")
 inventory_columns = 5
 inventory_rows = 5
 
-[node name="PickupManager" parent="." instance=ExtResource("3_d5ikl")]
-
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
 
-[connection signal="picked_up" from="PickupManager" to="." method="_on_pickup_manager_picked_up"]
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("3_3h1yw")

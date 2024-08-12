@@ -1,10 +1,11 @@
-[gd_scene load_steps=37 format=4 uid="uid://bq0ckcq1uh85j"]
+[gd_scene load_steps=33 format=4 uid="uid://bq0ckcq1uh85j"]
 
 [ext_resource type="Texture2D" uid="uid://clseiybfhp73n" path="res://assets/terrain_atlas/Grass-tiles.png" id="1_ce3r4"]
 [ext_resource type="PackedScene" uid="uid://ceptvbbbnmxjm" path="res://components/player.tscn" id="2_tfykv"]
+[ext_resource type="Shader" path="res://test_scenes/water_test/water_test_youtube.gdshader" id="2_tgneu"]
 [ext_resource type="Shader" uid="uid://6gxsll7jdy5s" path="res://test_scenes/water_test/water_test_normals.tres" id="3_rqkof"]
 [ext_resource type="Shader" path="res://test_scenes/water_test/water_test.gdshader" id="5_l28f5"]
-[ext_resource type="Shader" uid="uid://dc4obys0vjkj" path="res://test_scenes/water_test/water_test3.tres" id="5_qmdf2"]
+[ext_resource type="Texture2D" uid="uid://d27kt2y8i53qj" path="res://test_scenes/water_test/2d_lights_and_shadows_neutral_point_light.webp" id="7_o7vse"]
 [ext_resource type="Texture2D" uid="uid://ckpxjejt4g0eh" path="res://icon.svg" id="7_sulyn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xfx4y"]
@@ -22,47 +23,34 @@ texture = ExtResource("1_ce3r4")
 [sub_resource type="TileSet" id="TileSet_n3ojy"]
 sources/0 = SubResource("TileSetAtlasSource_xfx4y")
 
-[sub_resource type="Gradient" id="Gradient_o70v6"]
-offsets = PackedFloat32Array(0.203804, 0.923913)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_78dcq"]
-noise_type = 2
-fractal_type = 0
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_igq8b"]
-seamless = true
-color_ramp = SubResource("Gradient_o70v6")
-noise = SubResource("FastNoiseLite_78dcq")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_7424v"]
-noise_type = 2
-seed = 1
-fractal_type = 0
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0rorg"]
-seamless = true
-noise = SubResource("FastNoiseLite_7424v")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_24ja0"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cghv1"]
 noise_type = 3
-fractal_weighted_strength = 1.0
-cellular_jitter = -0.83
+fractal_type = 3
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fb1wm"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_32f1m"]
 seamless = true
-noise = SubResource("FastNoiseLite_24ja0")
+noise = SubResource("FastNoiseLite_cghv1")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3rx6n"]
+noise_type = 3
+seed = 1
+fractal_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f5wdh"]
+seamless = true
+noise = SubResource("FastNoiseLite_3rx6n")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c15jh"]
-shader = ExtResource("5_qmdf2")
-shader_parameter/Vector2Parameter = Vector2(4, 4)
-shader_parameter/ColorParameter = Color(0.08, 0.724, 1, 1)
-shader_parameter/color_strength = 0.5
-shader_parameter/FloatParameter2 = 0.1
-shader_parameter/time_scale_highlights = 0.1
-shader_parameter/transparency_strength = 0.5
-shader_parameter/Noise = SubResource("NoiseTexture2D_igq8b")
-shader_parameter/Noise2 = SubResource("NoiseTexture2D_0rorg")
-shader_parameter/highlights_texture = SubResource("NoiseTexture2D_fb1wm")
+shader = ExtResource("2_tgneu")
+shader_parameter/tone_color = Color(0.0736, 0.482693, 0.92, 1)
+shader_parameter/scroll1 = Vector2(0.05, 0.05)
+shader_parameter/scroll2 = Vector2(-0.05, -0.05)
+shader_parameter/distortion_strenght = 0.05
+shader_parameter/top_color = Color(0.98, 0.98, 0.98, 1)
+shader_parameter/light_start = 0.5
+shader_parameter/light_end = 1.0
+shader_parameter/noise1 = SubResource("NoiseTexture2D_32f1m")
+shader_parameter/noise2 = SubResource("NoiseTexture2D_f5wdh")
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_mkctm"]
 texture_repeat = 2
@@ -514,16 +502,6 @@ shader_parameter/distortion_strength = 0.2
 shader_parameter/noise = SubResource("NoiseTexture2D_qx2db")
 shader_parameter/noise2 = SubResource("NoiseTexture2D_d7g5i")
 
-[sub_resource type="Gradient" id="Gradient_rgqay"]
-offsets = PackedFloat32Array(0.560185, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_qkjio"]
-gradient = SubResource("Gradient_rgqay")
-fill = 1
-fill_from = Vector2(0.487179, 0.495726)
-fill_to = Vector2(0, 0)
-
 [sub_resource type="Environment" id="Environment_8van8"]
 glow_enabled = true
 glow_normalized = true
@@ -575,14 +553,12 @@ texture = ExtResource("7_sulyn")
 visible = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.13, 0.13, 0.13, 1)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-visible = false
-position = Vector2(24, -4)
-scale = Vector2(2.32812, 1.95312)
-texture = SubResource("GradientTexture2D_qkjio")
+position = Vector2(43, -31)
+scale = Vector2(1.60937, 1.20703)
+texture = ExtResource("7_o7vse")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_8van8")

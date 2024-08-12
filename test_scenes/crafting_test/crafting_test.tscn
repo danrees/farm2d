@@ -8,5 +8,3 @@
 position = Vector2(0.999992, 1.5)
 scale = Vector2(458, 245)
 texture = SubResource("CanvasTexture_8ytid")
-
-[node name="CraftingTable" type="Node2D" parent="."]
