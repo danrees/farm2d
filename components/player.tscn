@@ -1,12 +1,14 @@
-[gd_scene load_steps=38 format=3 uid="uid://ceptvbbbnmxjm"]
+[gd_scene load_steps=40 format=3 uid="uid://ceptvbbbnmxjm"]
 
 [ext_resource type="Script" path="res://components/entities/hurt_box.gd" id="1_5joix"]
 [ext_resource type="Script" path="res://controllers/player.gd" id="1_6es8b"]
 [ext_resource type="Texture2D" uid="uid://dxyak4dq6bt02" path="res://assets/sprites/characters/player1.png" id="2_hpbru"]
 [ext_resource type="PackedScene" uid="uid://c3rtudgbwb43" path="res://components/inventory_manager.tscn" id="3_uhb1r"]
 [ext_resource type="PackedScene" uid="uid://sf7prknxuq0j" path="res://components/state/state_machine.tscn" id="4_7kbeh"]
+[ext_resource type="PackedScene" uid="uid://7kktjiyjkepa" path="res://components/menu/inventory_menu.tscn" id="4_o0og1"]
 [ext_resource type="Script" path="res://components/animation/animation.gd" id="7_2p1ho"]
 [ext_resource type="PackedScene" uid="uid://7qwe3rwvaj3g" path="res://components/inventory/pickup_manager.tscn" id="7_bxrhj"]
+[ext_resource type="Script" path="res://components/menu/menu.gd" id="9_it1gh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wuewg"]
 atlas = ExtResource("2_hpbru")
@@ -555,7 +557,9 @@ shape = SubResource("CircleShape2D_2gi2h")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
 
-[node name="InventoryManager" parent="." instance=ExtResource("3_uhb1r")]
+[node name="InventoryManager" parent="." node_paths=PackedStringArray("menu_target") instance=ExtResource("3_uhb1r")]
+menu_target = NodePath("../PlayerMenu")
+inventory_menu = ExtResource("4_o0og1")
 
 [node name="MovementState" parent="." node_paths=PackedStringArray("animation", "player") instance=ExtResource("4_7kbeh")]
 animation = NodePath("../Animation/AnimationPlayer")
@@ -585,5 +589,14 @@ position = Vector2(0, -4.58)
 polygon = PackedVector2Array(-7, 8.99, -19, 17.99, -13, 24.99, -5, 29, 7, 29, 14, 23.99, 19, 16.99, 6, 8.99)
 
 [node name="PickupManager" parent="." instance=ExtResource("7_bxrhj")]
+
+[node name="PlayerMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_it1gh")
 
 [connection signal="picked_up" from="PickupManager" to="InventoryManager" method="_on_pickup_manager_picked_up"]

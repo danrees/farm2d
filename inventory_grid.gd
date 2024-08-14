@@ -20,14 +20,12 @@ func _ready() -> void:
 		slot.index = i
 		add_child(slot)
 		slot.swap_item.connect(swap_item)
-	var test_item = preload("res://assets/sprites/items/wood.tres")
-	var test_stack = ItemStack.new()
-	test_stack.quantity = 5
-	test_stack.icon = test_item.icon
-	test_stack.collectible = test_item.collectible
-	
-	
-	add_item(test_stack)
+	#var test_item = preload("res://assets/sprites/items/wood.tres")
+	#var test_stack = ItemStack.new()
+	#test_stack.quantity = 5
+	#test_stack.icon = test_item.icon
+	#test_stack.collectible = test_item.collectible
+	#add_item(test_stack)
 
 func is_full() -> bool:
 	return get_child_count() < (inventory_columns * inventory_rows)
