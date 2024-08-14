@@ -1,0 +1,117 @@
+[gd_scene load_steps=14 format=3 uid="uid://dfi8qdox05e8j"]
+
+[ext_resource type="Script" path="res://test_scenes/components/resource_node.gd" id="1_gepet"]
+[ext_resource type="Script" path="res://components/entities/hit_box.gd" id="2_aokeu"]
+[ext_resource type="Script" path="res://components/entities/contents.gd" id="3_j6xup"]
+[ext_resource type="Script" path="res://components/inventory/item_stack.gd" id="4_y6bly"]
+[ext_resource type="PackedScene" uid="uid://ue0b5llhi42w" path="res://assets/sprites/items/wood.tscn" id="5_7mipv"]
+[ext_resource type="Texture2D" uid="uid://yb4c4opit2p0" path="res://assets/sprites/items/wood.png" id="6_crxdq"]
+[ext_resource type="Texture2D" uid="uid://b2mo3ooowkvbs" path="res://assets/sprites/Trees.png" id="7_3qbn6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w0j5x"]
+
+[sub_resource type="Resource" id="Resource_1xnbi"]
+script = ExtResource("4_y6bly")
+quantity = 5
+max_stack_size = 0
+name = "wood"
+description = "raw wood"
+icon = ExtResource("6_crxdq")
+collectible = ExtResource("5_7mipv")
+stackable = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ia17c"]
+radius = 6.08276
+
+[sub_resource type="Animation" id="Animation_jfpv5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3277m"]
+resource_name = "tree_felling"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.5708]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(32, 23)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_spwet"]
+_data = {
+"RESET": SubResource("Animation_jfpv5"),
+"tree_felling": SubResource("Animation_3277m")
+}
+
+[node name="Tree" type="StaticBody2D"]
+position = Vector2(104, -31)
+script = ExtResource("1_gepet")
+destroy_animation = "tree_felling"
+
+[node name="HitBox" type="Area2D" parent="."]
+position = Vector2(0.461021, 23.5028)
+script = ExtResource("2_aokeu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_w0j5x")
+
+[node name="Contents" type="Node" parent="."]
+script = ExtResource("3_j6xup")
+items = Array[ExtResource("4_y6bly")]([SubResource("Resource_1xnbi")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("7_3qbn6")
+hframes = 2
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 25)
+shape = SubResource("CircleShape2D_ia17c")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_spwet")
+}
+
+[connection signal="body_entered" from="HitBox" to="HitBox" method="_on_body_entered"]

@@ -1,28 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://dfhe34badd0bh"]
+[gd_scene load_steps=6 format=3 uid="uid://dfhe34badd0bh"]
 
 [ext_resource type="PackedScene" uid="uid://ceptvbbbnmxjm" path="res://components/player.tscn" id="1_irybn"]
-[ext_resource type="Script" path="res://components/entities/hit_box.gd" id="2_dh3ex"]
-[ext_resource type="PackedScene" uid="uid://du266sopcvda3" path="res://components/inventory/resource_node.tscn" id="2_m4kja"]
-[ext_resource type="Script" path="res://components/entities/contents.gd" id="3_q3pet"]
-[ext_resource type="Script" path="res://components/inventory/item_stack.gd" id="4_3bxnc"]
-[ext_resource type="PackedScene" uid="uid://ue0b5llhi42w" path="res://assets/sprites/items/wood.tscn" id="5_aytvw"]
-[ext_resource type="Texture2D" uid="uid://yb4c4opit2p0" path="res://assets/sprites/items/wood.png" id="6_a1uyi"]
-[ext_resource type="Texture2D" uid="uid://b2mo3ooowkvbs" path="res://assets/sprites/Trees.png" id="7_5vsgr"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_w0j5x"]
-
-[sub_resource type="Resource" id="Resource_1xnbi"]
-script = ExtResource("4_3bxnc")
-quantity = 5
-max_stack_size = 0
-name = "wood"
-description = "raw wood"
-icon = ExtResource("6_a1uyi")
-collectible = ExtResource("5_aytvw")
-stackable = true
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_ia17c"]
-radius = 6.08276
+[ext_resource type="PackedScene" uid="uid://dfi8qdox05e8j" path="res://assets/entities/tree.tscn" id="2_1ynwo"]
 
 [sub_resource type="Gradient" id="Gradient_tp3h1"]
 offsets = PackedFloat32Array(0, 0.997685)
@@ -45,26 +24,7 @@ glow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_irybn")]
 
-[node name="Tree" parent="." instance=ExtResource("2_m4kja")]
-
-[node name="HitBox" type="Area2D" parent="Tree"]
-script = ExtResource("2_dh3ex")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Tree/HitBox"]
-shape = SubResource("CircleShape2D_w0j5x")
-
-[node name="Contents" type="Node" parent="Tree"]
-script = ExtResource("3_q3pet")
-items = Array[ExtResource("4_3bxnc")]([SubResource("Resource_1xnbi")])
-
-[node name="Sprite2D" type="Sprite2D" parent="Tree"]
-texture = ExtResource("7_5vsgr")
-hframes = 2
-vframes = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Tree"]
-position = Vector2(0, 25)
-shape = SubResource("CircleShape2D_ia17c")
+[node name="Tree1" parent="." instance=ExtResource("2_1ynwo")]
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 visible = false
@@ -80,4 +40,10 @@ color = Color(0.81, 0.81, 0.81, 1)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_eg3x5")
 
-[connection signal="body_entered" from="Tree/HitBox" to="Tree/HitBox" method="_on_body_entered"]
+[node name="Tree2" parent="." instance=ExtResource("2_1ynwo")]
+position = Vector2(-90.1694, -102.954)
+atlas_coord = 2
+
+[node name="Tree3" parent="." instance=ExtResource("2_1ynwo")]
+position = Vector2(63.8152, -106.62)
+atlas_coord = 1

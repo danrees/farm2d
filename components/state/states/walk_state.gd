@@ -1,6 +1,6 @@
 class_name Walk extends State
 
-@export var SPEED: int = 200
+@export var SPEED: int = 100
 
 # var current_direction: String = "down"
 var animation: AnimationPlayer
