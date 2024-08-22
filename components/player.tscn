@@ -1,14 +1,16 @@
-[gd_scene load_steps=40 format=3 uid="uid://ceptvbbbnmxjm"]
+[gd_scene load_steps=42 format=3 uid="uid://ceptvbbbnmxjm"]
 
-[ext_resource type="Script" path="res://components/entities/hurt_box.gd" id="1_5joix"]
 [ext_resource type="Script" path="res://controllers/player.gd" id="1_6es8b"]
 [ext_resource type="Texture2D" uid="uid://dxyak4dq6bt02" path="res://assets/sprites/characters/player1.png" id="2_hpbru"]
 [ext_resource type="PackedScene" uid="uid://c3rtudgbwb43" path="res://components/inventory_manager.tscn" id="3_uhb1r"]
 [ext_resource type="PackedScene" uid="uid://sf7prknxuq0j" path="res://components/state/state_machine.tscn" id="4_7kbeh"]
 [ext_resource type="PackedScene" uid="uid://7kktjiyjkepa" path="res://components/menu/inventory_menu.tscn" id="4_o0og1"]
+[ext_resource type="Script" path="res://components/state/movement_state_machine.gd" id="6_t8wa2"]
 [ext_resource type="Script" path="res://components/animation/animation.gd" id="7_2p1ho"]
 [ext_resource type="PackedScene" uid="uid://7qwe3rwvaj3g" path="res://components/inventory/pickup_manager.tscn" id="7_bxrhj"]
+[ext_resource type="Script" path="res://components/state/states/axe_state.gd" id="7_ql846"]
 [ext_resource type="Script" path="res://components/menu/menu.gd" id="9_it1gh"]
+[ext_resource type="PackedScene" uid="uid://cs5641a4mqwqw" path="res://components/equipment/axe.tscn" id="11_es1nd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wuewg"]
 atlas = ExtResource("2_hpbru")
@@ -196,7 +198,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../HurtBox:rotation")
+tracks/2/path = NodePath("../Tool:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -237,7 +239,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../HurtBox:rotation")
+tracks/2/path = NodePath("../Tool:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -276,7 +278,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../HurtBox:rotation")
+tracks/2/path = NodePath("../Tool:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -312,18 +314,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../HurtBox:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-1.5708]
-}
 
 [sub_resource type="Animation" id="Animation_4d1ma"]
 resource_name = "idle_up"
@@ -354,7 +344,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../HurtBox:rotation")
+tracks/2/path = NodePath("../Tool:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -395,7 +385,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../HurtBox:rotation")
+tracks/2/path = NodePath("../Tool:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -436,7 +426,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../HurtBox:rotation")
+tracks/2/path = NodePath("../Tool:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -477,7 +467,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../HurtBox:rotation")
+tracks/2/path = NodePath("../Tool:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -518,7 +508,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../HurtBox:rotation")
+tracks/2/path = NodePath("../Tool:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -565,6 +555,12 @@ inventory_menu = ExtResource("4_o0og1")
 animation = NodePath("../Animation/AnimationPlayer")
 player = NodePath("..")
 
+[node name="ActionState" type="Node2D" parent="."]
+script = ExtResource("6_t8wa2")
+
+[node name="AxeState" type="Node" parent="ActionState"]
+script = ExtResource("7_ql846")
+
 [node name="Animation" type="Node2D" parent="."]
 script = ExtResource("7_2p1ho")
 
@@ -579,15 +575,6 @@ texture = ExtResource("2_hpbru")
 hframes = 8
 vframes = 2
 
-[node name="HurtBox" type="Area2D" parent="."]
-position = Vector2(0, 6.59)
-script = ExtResource("1_5joix")
-damage = 5
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtBox"]
-position = Vector2(0, -4.58)
-polygon = PackedVector2Array(-7, 8.99, -19, 17.99, -13, 24.99, -5, 29, 7, 29, 14, 23.99, 19, 16.99, 6, 8.99)
-
 [node name="PickupManager" parent="." instance=ExtResource("7_bxrhj")]
 
 [node name="PlayerMenu" type="Control" parent="."]
@@ -598,5 +585,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_it1gh")
+
+[node name="Tool" type="Node2D" parent="."]
+position = Vector2(0.086586, 6.56853)
+
+[node name="Axe" parent="Tool" instance=ExtResource("11_es1nd")]
 
 [connection signal="picked_up" from="PickupManager" to="InventoryManager" method="_on_pickup_manager_picked_up"]

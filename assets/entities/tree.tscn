@@ -89,7 +89,7 @@ position = Vector2(104, -31)
 script = ExtResource("1_gepet")
 destroy_animation = "tree_felling"
 
-[node name="HitBox" type="Area2D" parent="."]
+[node name="HitBox" type="Area2D" parent="." groups=["wood"]]
 position = Vector2(0.461021, 23.5028)
 script = ExtResource("2_aokeu")
 

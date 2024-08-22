@@ -1,9 +1,9 @@
-[gd_scene load_steps=33 format=4 uid="uid://bq0ckcq1uh85j"]
+[gd_scene load_steps=31 format=4 uid="uid://bq0ckcq1uh85j"]
 
 [ext_resource type="Texture2D" uid="uid://clseiybfhp73n" path="res://assets/terrain_atlas/Grass-tiles.png" id="1_ce3r4"]
 [ext_resource type="PackedScene" uid="uid://ceptvbbbnmxjm" path="res://components/player.tscn" id="2_tfykv"]
 [ext_resource type="Shader" path="res://test_scenes/water_test/water_test_youtube.gdshader" id="2_tgneu"]
-[ext_resource type="Shader" uid="uid://6gxsll7jdy5s" path="res://test_scenes/water_test/water_test_normals.tres" id="3_rqkof"]
+[ext_resource type="Shader" uid="uid://crcbp8fsi1smp" path="res://test_scenes/water_test/water_test4.tres" id="3_necfr"]
 [ext_resource type="Shader" path="res://test_scenes/water_test/water_test.gdshader" id="5_l28f5"]
 [ext_resource type="Texture2D" uid="uid://d27kt2y8i53qj" path="res://test_scenes/water_test/2d_lights_and_shadows_neutral_point_light.webp" id="7_o7vse"]
 [ext_resource type="Texture2D" uid="uid://ckpxjejt4g0eh" path="res://icon.svg" id="7_sulyn"]
@@ -55,41 +55,43 @@ shader_parameter/noise2 = SubResource("NoiseTexture2D_f5wdh")
 [sub_resource type="CanvasTexture" id="CanvasTexture_mkctm"]
 texture_repeat = 2
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_enkpo"]
-noise_type = 2
-fractal_type = 0
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bqks3"]
-seamless = true
-noise = SubResource("FastNoiseLite_enkpo")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_f5o0c"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bvep1"]
 noise_type = 2
 seed = 1
 fractal_type = 0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fbh7m"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_u6o37"]
+generate_mipmaps = false
 seamless = true
-noise = SubResource("FastNoiseLite_f5o0c")
+seamless_blend_skirt = 0.385
+noise = SubResource("FastNoiseLite_bvep1")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_slby3"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fforn"]
 noise_type = 2
 fractal_type = 0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_x5bfu"]
-noise = SubResource("FastNoiseLite_slby3")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xv401"]
+seamless = true
+seamless_blend_skirt = 0.602
+noise = SubResource("FastNoiseLite_fforn")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yc2k7"]
-shader = ExtResource("3_rqkof")
-shader_parameter/Vector2Parameter = Vector2(5, 5)
-shader_parameter/ColorParameter = Color(0.36, 0.445333, 1, 1)
-shader_parameter/color_strength = 0.7
-shader_parameter/transparency_strength = 0.65
-shader_parameter/Noise = SubResource("NoiseTexture2D_bqks3")
-shader_parameter/Noise2 = SubResource("NoiseTexture2D_fbh7m")
-shader_parameter/normal_texture = SubResource("NoiseTexture2D_x5bfu")
+shader = ExtResource("3_necfr")
+shader_parameter/light_start = 0.359
+shader_parameter/light_end = 0.69
+shader_parameter/Tiling = Vector2(2, 2)
+shader_parameter/FloatParameter2 = 0.1
+shader_parameter/Tiling2 = Vector2(2, 2)
+shader_parameter/FloatParameter3 = 0.1
+shader_parameter/ColorParameter = Color(0.99, 0.991333, 1, 1)
+shader_parameter/tint = Color(0, 0.0933334, 0.8, 1)
+shader_parameter/tint_str = 0.5
+shader_parameter/FloatParameter = 0.5
+shader_parameter/noise1 = SubResource("NoiseTexture2D_u6o37")
+shader_parameter/noise2 = SubResource("NoiseTexture2D_xv401")
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_i8gvp"]
+texture_repeat = 2
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_52ogg"]
 texture = ExtResource("1_ce3r4")
@@ -516,13 +518,14 @@ tile_map_data = PackedByteArray("AAD7//z/AAANAAAAAAAEAPz/AAAPAAAAAAD8//z/AAAOAAA
 tile_set = SubResource("TileSet_n3ojy")
 
 [node name="Sprite2D" type="Sprite2D" parent="Layers"]
+visible = false
 material = SubResource("ShaderMaterial_c15jh")
 position = Vector2(3.5, 3.5)
 scale = Vector2(207, 207)
 texture = SubResource("CanvasTexture_mkctm")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Layers"]
-visible = false
+texture_repeat = 2
 material = SubResource("ShaderMaterial_yc2k7")
 position = Vector2(3.99999, 0.5)
 scale = Vector2(234, 151)
@@ -556,7 +559,7 @@ visible = false
 color = Color(0.13, 0.13, 0.13, 1)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(43, -31)
+position = Vector2(35, -22)
 scale = Vector2(1.60937, 1.20703)
 texture = ExtResource("7_o7vse")
 
