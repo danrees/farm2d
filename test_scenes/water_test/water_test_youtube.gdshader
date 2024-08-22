@@ -11,8 +11,8 @@ uniform vec2 scroll2 = vec2(-0.05, -0.05);
 uniform float distortion_strenght = 0.2;
 
 uniform vec4 top_color: source_color;
-uniform float light_start : hint_range(0.0, 1.0, 0.1) = 0.275;
-uniform float light_end : hint_range(0.0, 1.0, 0.1) = 0.4;
+uniform float light_start : hint_range(0.0, 1.0, 0.001) = 0.275;
+uniform float light_end : hint_range(0.0, 1.0, 0.01) = 0.4;
 
 
 void fragment() {
