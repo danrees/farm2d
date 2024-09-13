@@ -1,16 +1,15 @@
-[gd_scene load_steps=42 format=3 uid="uid://ceptvbbbnmxjm"]
+[gd_scene load_steps=41 format=3 uid="uid://ceptvbbbnmxjm"]
 
 [ext_resource type="Script" path="res://controllers/player.gd" id="1_6es8b"]
 [ext_resource type="Texture2D" uid="uid://dxyak4dq6bt02" path="res://assets/sprites/characters/player1.png" id="2_hpbru"]
-[ext_resource type="PackedScene" uid="uid://c3rtudgbwb43" path="res://components/inventory_manager.tscn" id="3_uhb1r"]
 [ext_resource type="PackedScene" uid="uid://sf7prknxuq0j" path="res://components/state/state_machine.tscn" id="4_7kbeh"]
-[ext_resource type="PackedScene" uid="uid://7kktjiyjkepa" path="res://components/menu/inventory_menu.tscn" id="4_o0og1"]
-[ext_resource type="Script" path="res://components/state/movement_state_machine.gd" id="6_t8wa2"]
 [ext_resource type="Script" path="res://components/animation/animation.gd" id="7_2p1ho"]
 [ext_resource type="PackedScene" uid="uid://7qwe3rwvaj3g" path="res://components/inventory/pickup_manager.tscn" id="7_bxrhj"]
-[ext_resource type="Script" path="res://components/state/states/axe_state.gd" id="7_ql846"]
+[ext_resource type="Script" path="res://components/inventory/inventory.gd" id="9_h85hc"]
 [ext_resource type="Script" path="res://components/menu/menu.gd" id="9_it1gh"]
-[ext_resource type="PackedScene" uid="uid://cs5641a4mqwqw" path="res://components/equipment/axe.tscn" id="11_es1nd"]
+[ext_resource type="PackedScene" uid="uid://bfd3bi72i1b36" path="res://components/inventory/player_inventory_menu.tscn" id="9_q56ck"]
+[ext_resource type="Script" path="res://components/player_menu_handler.gd" id="10_k1lbq"]
+[ext_resource type="PackedScene" uid="uid://kt2dfrgem5g5" path="res://components/inventory/tool_belt.tscn" id="11_fgn71"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wuewg"]
 atlas = ExtResource("2_hpbru")
@@ -195,18 +194,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Tool:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
 
 [sub_resource type="Animation" id="Animation_mus1s"]
 resource_name = "idle_down"
@@ -236,18 +223,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Tool:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
 
 [sub_resource type="Animation" id="Animation_jh7m0"]
 resource_name = "idle_left"
@@ -274,18 +249,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Tool:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.5708]
 }
 
 [sub_resource type="Animation" id="Animation_8h6jj"]
@@ -341,18 +304,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Tool:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [3.14159]
-}
 
 [sub_resource type="Animation" id="Animation_xune0"]
 resource_name = "walk_down"
@@ -381,18 +332,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Tool:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_0smqm"]
@@ -423,18 +362,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Tool:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.5708]
-}
 
 [sub_resource type="Animation" id="Animation_sx8bd"]
 resource_name = "walk_right"
@@ -463,18 +390,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Tool:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-1.5708]
 }
 
 [sub_resource type="Animation" id="Animation_mrvwo"]
@@ -505,18 +420,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Tool:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [3.14159]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ovue8"]
 _data = {
@@ -545,21 +448,12 @@ position = Vector2(0, 11)
 shape = SubResource("CircleShape2D_2gi2h")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(5, 5)
-
-[node name="InventoryManager" parent="." node_paths=PackedStringArray("menu_target") instance=ExtResource("3_uhb1r")]
-menu_target = NodePath("../PlayerMenu")
-inventory_menu = ExtResource("4_o0og1")
+zoom = Vector2(3, 3)
+position_smoothing_enabled = true
 
 [node name="MovementState" parent="." node_paths=PackedStringArray("animation", "player") instance=ExtResource("4_7kbeh")]
 animation = NodePath("../Animation/AnimationPlayer")
 player = NodePath("..")
-
-[node name="ActionState" type="Node2D" parent="."]
-script = ExtResource("6_t8wa2")
-
-[node name="AxeState" type="Node" parent="ActionState"]
-script = ExtResource("7_ql846")
 
 [node name="Animation" type="Node2D" parent="."]
 script = ExtResource("7_2p1ho")
@@ -586,9 +480,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_it1gh")
 
-[node name="Tool" type="Node2D" parent="."]
-position = Vector2(0.086586, 6.56853)
+[node name="InventoryHUD" type="CanvasLayer" parent="."]
 
-[node name="Axe" parent="Tool" instance=ExtResource("11_es1nd")]
+[node name="ToolBelt" parent="InventoryHUD" node_paths=PackedStringArray("inventory") instance=ExtResource("11_fgn71")]
+inventory = NodePath("")
 
-[connection signal="picked_up" from="PickupManager" to="InventoryManager" method="_on_pickup_manager_picked_up"]
+[node name="InventoryMenuHandler" type="Node" parent="." node_paths=PackedStringArray("inventory_manager", "menu_target")]
+script = ExtResource("10_k1lbq")
+inventory_manager = NodePath("../Inventory")
+inventory_menu = ExtResource("9_q56ck")
+menu_target = NodePath("../PlayerMenu")
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("9_h85hc")
+
+[connection signal="picked_up" from="PickupManager" to="Inventory" method="add_item"]

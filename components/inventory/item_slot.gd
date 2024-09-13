@@ -3,6 +3,7 @@ class_name ItemSlot extends Control
 @onready var item_quantity: Label = $Button/MarginContainer/ItemQuantity
 
 signal swap_item(item: Item, index: int)
+signal select(item: Item, index: int)
 
 @export var index: int = 0
 @export var item: Item
@@ -36,10 +37,10 @@ func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
 	return data is SlotData
 
 func _drop_data(at_position: Vector2, data: Variant) -> void:
-	var drop_data = data as SlotData
-	var swap_item = self.item
-	self.item = drop_data.item
-	swap_item.emit(swap_item, drop_data.slot_index)
+	if data is SlotData:
+		var swap_item = self.item
+		self.item = data.item
+		swap_item.emit(swap_item, data.slot_index)
 
 func _get_drag_data(at_position: Vector2) -> Variant:
 	var data = SlotData.new()
@@ -47,3 +48,7 @@ func _get_drag_data(at_position: Vector2) -> Variant:
 	data.slot_index = self.index
 	set_drag_preview(make_drag_preview())
 	return data
+
+
+func _on_button_pressed() -> void:
+	pass # Replace with function body.

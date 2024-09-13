@@ -1,7 +1,8 @@
-class_name ItemStack extends Item
+class_name ItemStack extends Resource
 
 @export var quantity: int
 @export var max_stack_size: int
+@export var item: Item
 
 func stack(item: ItemStack) -> ItemStack:
 	quantity += item.quantity

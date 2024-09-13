@@ -4,6 +4,10 @@
 
 [node name="Axe" type="Area2D"]
 script = ExtResource("1_rrkgg")
+target_distance = null
+affects = {
+"wood": 10
+}
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(1.90735e-06, 7.9125)

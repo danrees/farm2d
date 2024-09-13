@@ -5,7 +5,7 @@ class_name PickupManager extends Node2D
 
 @export var magnet_strength: int = 10
 
-signal picked_up(item: Item)
+signal picked_up(item: ItemStack)
 # while there is a collectibe item inside the magnetic
 # zone, this will pull it towards the pickup manager
 # node2d

@@ -16,3 +16,4 @@ func _process(delta: float) -> void:
 		elapsed_seconds = fmod(elapsed_seconds,1)
 		# print_debug(elapsed_seconds)
 		day_light.next(time)
+		time_event.emit(time)

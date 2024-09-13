@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://c48e5jkf03pvu"]
+
+[ext_resource type="Script" path="res://components/hud/player_hud.gd" id="1_1564c"]
+[ext_resource type="Script" path="res://components/hud/time.gd" id="2_qhx8q"]
+[ext_resource type="PackedScene" uid="uid://kt2dfrgem5g5" path="res://components/inventory/tool_belt.tscn" id="2_rg2oh"]
+
+[node name="PlayerHud" type="CanvasLayer"]
+follow_viewport_enabled = true
+script = ExtResource("1_1564c")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Time" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+script = ExtResource("2_qhx8q")
+
+[node name="TimeDisplay" type="Label" parent="VBoxContainer/Time"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="Pause" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+toggle_mode = true
+text = "Pause
+"
+
+[node name="ToolBelt" parent="VBoxContainer/VBoxContainer" instance=ExtResource("2_rg2oh")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+
+[connection signal="toggled" from="VBoxContainer/VBoxContainer/Pause" to="." method="_on_pause_toggled"]

@@ -1,6 +1,6 @@
 class_name Collectible extends RigidBody2D
 
-@export var item: Item
+@export var item: ItemStack
 const COLLISION_ZERO := 0b0
 const COLLISION_COLLECTIBLE := 0b10
 
@@ -13,7 +13,12 @@ static func from_item(item: Item) -> Collectible:
 
 func pick_up() -> void:
 	# potentially do an animation?
-	queue_free()
+	if !item.collectible:
+		get_parent().remove_child(self)
+		var scene = PackedScene.new()
+		scene.pack(self)
+		item.collectible = scene
+	
 
 func drop_to(target: Node2D, position: Vector2) -> void:
 	target.add_child(self)

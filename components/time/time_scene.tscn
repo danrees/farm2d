@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://clemr1j1cos71"]
+
+[ext_resource type="Script" path="res://components/time/time_scene.gd" id="1_5ut8s"]
+[ext_resource type="Script" path="res://components/time/day_light.gd" id="1_pbl61"]
+[ext_resource type="Script" path="res://components/time/time_hud.gd" id="2_4syr6"]
+[ext_resource type="Script" path="res://components/time/time_controller.gd" id="2_65ejl"]
+[ext_resource type="Script" path="res://components/time/date_time.gd" id="3_ow8wg"]
+
+[sub_resource type="Resource" id="Resource_fvgg5"]
+script = ExtResource("3_ow8wg")
+seconds = 0
+minutes = 0
+hours = 6
+days = 1
+
+[node name="Time" type="Node"]
+script = ExtResource("1_5ut8s")
+
+[node name="TimeController" type="Node2D" parent="."]
+script = ExtResource("2_65ejl")
+time = SubResource("Resource_fvgg5")
+time_scale = 60
+
+[node name="DayLight" type="CanvasModulate" parent="TimeController"]
+script = ExtResource("1_pbl61")
+
+[node name="TimeHUD" type="CanvasLayer" parent="."]
+script = ExtResource("2_4syr6")
+
+[node name="PanelContainer" type="PanelContainer" parent="TimeHUD"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="Display" type="Label" parent="TimeHUD/PanelContainer"]
+layout_mode = 2
