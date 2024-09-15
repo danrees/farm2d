@@ -6,7 +6,7 @@ signal swap_item(item: Item, index: int)
 signal select(item: Item, index: int)
 
 @export var index: int = 0
-@export var item: Item
+@export var item: ItemStack
 
 func _ready() -> void:
 	if item:
@@ -16,7 +16,7 @@ func _ready() -> void:
 	
 	item_quantity.label_settings.font_size = size.y / 3
 
-func add(item: Item)->void:
+func add(item: ItemStack)->void:
 	if !item:
 		item_icon.texture = null
 		item_quantity.text = ""

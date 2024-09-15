@@ -4,6 +4,9 @@ class_name ItemStack extends Resource
 @export var max_stack_size: int
 @export var item: Item
 
+const ITEM_SLOT = preload("res://components/inventory/item_slot.tscn")
+
+
 func stack(item: ItemStack) -> ItemStack:
 	quantity += item.quantity
 	if quantity > max_stack_size:
@@ -15,3 +18,7 @@ func stack(item: ItemStack) -> ItemStack:
 		return new_stack
 	return null
 		
+func create_slot() -> ItemSlot:
+	var slot = ITEM_SLOT.instantiate() as ItemSlot
+	slot.add(self)
+	return slot

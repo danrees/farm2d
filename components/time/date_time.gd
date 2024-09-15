@@ -15,6 +15,6 @@ func _increase_seconds(delta_seconds: int) -> void:
 	minutes = minutes % 60
 	hours = hours % 24
 	
-func _after(compare: DateTime) -> bool:
+func _before(compare: DateTime) -> bool:
 	return hours > compare.hours || minutes > compare.minutes || seconds > compare.seconds
 	

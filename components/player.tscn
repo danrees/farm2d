@@ -482,8 +482,7 @@ script = ExtResource("9_it1gh")
 
 [node name="InventoryHUD" type="CanvasLayer" parent="."]
 
-[node name="ToolBelt" parent="InventoryHUD" node_paths=PackedStringArray("inventory") instance=ExtResource("11_fgn71")]
-inventory = NodePath("")
+[node name="ToolBelt" parent="InventoryHUD" instance=ExtResource("11_fgn71")]
 
 [node name="InventoryMenuHandler" type="Node" parent="." node_paths=PackedStringArray("inventory_manager", "menu_target")]
 script = ExtResource("10_k1lbq")
