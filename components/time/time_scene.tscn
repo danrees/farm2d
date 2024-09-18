@@ -1,28 +1,87 @@
-[gd_scene load_steps=7 format=3 uid="uid://clemr1j1cos71"]
+[gd_scene load_steps=10 format=3 uid="uid://clemr1j1cos71"]
 
 [ext_resource type="Script" path="res://components/time/time_scene.gd" id="1_5ut8s"]
-[ext_resource type="Script" path="res://components/time/day_light.gd" id="1_pbl61"]
 [ext_resource type="Script" path="res://components/time/time_hud.gd" id="2_4syr6"]
 [ext_resource type="Script" path="res://components/time/time_controller.gd" id="2_65ejl"]
-[ext_resource type="Script" path="res://components/time/date_time.gd" id="3_ow8wg"]
+[ext_resource type="Script" path="res://components/time/clock.gd" id="4_6uasm"]
+[ext_resource type="Script" path="res://components/time/calendar.gd" id="5_48dfx"]
 
-[sub_resource type="Resource" id="Resource_fvgg5"]
-script = ExtResource("3_ow8wg")
-seconds = 0
-minutes = 0
-hours = 6
-days = 1
+[sub_resource type="Animation" id="Animation_l5aok"]
+resource_name = "morning"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DayLight/Lightness:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.76, 0.620413, 0.4712, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5s0u6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DayLight/Lightness:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.76, 0.620413, 0.4712, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_aast4"]
+resource_name = "evening"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DayLight/Lightness:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.318, 0.305, 0.5, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w3uvr"]
+_data = {
+"RESET": SubResource("Animation_5s0u6"),
+"evening": SubResource("Animation_aast4"),
+"morning": SubResource("Animation_l5aok")
+}
 
 [node name="Time" type="Node"]
 script = ExtResource("1_5ut8s")
 
 [node name="TimeController" type="Node2D" parent="."]
 script = ExtResource("2_65ejl")
-time = SubResource("Resource_fvgg5")
-time_scale = 60
 
-[node name="DayLight" type="CanvasModulate" parent="TimeController"]
-script = ExtResource("1_pbl61")
+[node name="Clock" type="Node" parent="TimeController"]
+script = ExtResource("4_6uasm")
+
+[node name="Calendar" type="Node" parent="TimeController"]
+script = ExtResource("5_48dfx")
+
+[node name="DayLight" type="Node" parent="TimeController"]
+
+[node name="Lightness" type="CanvasModulate" parent="TimeController/DayLight"]
+color = Color(0.76, 0.620413, 0.4712, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TimeController/DayLight"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_w3uvr")
+}
 
 [node name="TimeHUD" type="CanvasLayer" parent="."]
 script = ExtResource("2_4syr6")
@@ -35,5 +94,16 @@ offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
 
-[node name="Display" type="Label" parent="TimeHUD/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TimeHUD/PanelContainer"]
 layout_mode = 2
+
+[node name="DateLabel" type="Label" parent="TimeHUD/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TimeLabel" type="Label" parent="TimeHUD/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[connection signal="date_changed" from="TimeController" to="." method="_on_time_controller_date_changed"]
+[connection signal="time_changed" from="TimeController" to="." method="_on_time_controller_time_changed"]
+[connection signal="tick" from="TimeController/Clock" to="TimeController" method="_on_clock_tick"]
+[connection signal="sig_new_day" from="TimeController/Calendar" to="TimeController" method="_on_calendar_sig_new_day"]
